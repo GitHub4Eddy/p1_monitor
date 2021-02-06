@@ -7,7 +7,7 @@
 -- All power consumption of all HomeCenter devices is summarized
 -- The difference between the total power consumption and the power consumption of the HomeCenter devices is put in a unused device (unless the powerID = 0 or empty)
 
--- Versionn 1.2 (6th February 2021)
+-- Version 1.2 (6th February 2021)
    -- Added a lot of Child Devices
 
 -- Version 1.1 (18th January 2021)
