@@ -1,10 +1,17 @@
 # p1_monitor
 
 This Quickapp retrieves power consumption, power production and gas usage from the (P1 Monitor) energy and gas meter 
-All power consumption of all HomeCenter devices is summerized
+
+Child Devices for Net Consumption, Consumption, Production, Gross Consumption, Device Consumption, Consumption High, Consumption Low, Production High, Production Low, Total Gas, Consumption L1, Consumption L2, Consumption L3, Ampere L1, Ampere L2, Ampere L3, Production L1, Production L2 and Production L3
+
+All power consumption of all HomeCenter devices is summarized
 The difference between the total power consumption and the power consumption of the HomeCenter devices is put in a unused device (unless the powerID = 0 or empty)
-In the QuickApp labels power consumption, power production and gas usage is shown 
-The net consumption is also shown in de log (under the icon)
+
+Versionn 1.2 (6th February 2021)
+- Added a lot of Child Devices
+
+Version 1.1 (18th January 2021)
+- Solved a bug when powerID = 0
 
 Version 1.0 (15th Jannuari 2021)
 - Changed routine te get Energy Device ID's fast (no more maxNodeID needed)
@@ -30,10 +37,6 @@ I use a Smart Meter Cable Starter Kit:
 
 Variables (mandatory): 
 - IPaddress = IP address of your P1 monitor
-- Path = Path behind the IP address, normally /api/v1/smartmeter?limit=1&json=object
 - Interval = Number in seconds, the P1 Monitor normally is updated every 10 seconds
 - powerID = ID of the device where you want to capture the 'delta' power, use 0 if you don't want to store the energy consumption
 - debugLevel = Number (1=some, 2=few, 3=all) (default = 1)
-
-Example content Json table (Without production)
-{"CONSUMPTION_GAS_M3": 6539.998, "CONSUMPTION_KWH_HIGH": 9549.688, "CONSUMPTION_KWH_LOW": 8735.424, "CONSUMPTION_W": 704, "PRODUCTION_KWH_HIGH": 0.0, "PRODUCTION_KWH_LOW": 0.0, "PRODUCTION_W": 0, "RECORD_IS_PROCESSED": 0, "TARIFCODE": "P", "TIMESTAMP_UTC": 1597135675, "TIMESTAMP_lOCAL": "2020-08-11 10:47:55"}
