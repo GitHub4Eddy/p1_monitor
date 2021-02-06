@@ -27,6 +27,12 @@ Version 0.3 (16th August 2020)
 - Added power production
 - Changed method of adding QuickApp variables, so they can be edited
 
+Tested on:
+- P1 Monitor version:202012-1.0.0
+- Raspberry Pi model:Raspberry Pi 4 Model B Rev 1.1
+- Linux-5.4.72-v7l+-armv7l-with-debian-10.6
+- Python versie:3.7.3
+   
 I use a Smart Meter Cable Starter Kit:
 - Raspberry Pi 4 Model B Rev 1.1 2GB
 - 8GB Micro SDHC
