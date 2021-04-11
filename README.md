@@ -7,6 +7,9 @@ Child Devices for Net Consumption, Consumption, Production, Gross Consumption, D
 All power consumption of all HomeCenter devices is summarized
 The difference between the total power consumption and the power consumption of the HomeCenter devices is put in a unused device (unless the powerID = 0 or empty)
 
+Version 1.4 (11th April 2021)
+- Added Child Devices Waterflow and Total Waterflow
+   
 Version 1.3 (13th February 2021)
 - Added Child Devices for Voltage L1 L2 L3
    
