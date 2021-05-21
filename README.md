@@ -1,6 +1,6 @@
 # p1_monitor
 
-This Quickapp retrieves power consumption, power production and gas usage from the (P1 Monitor) energy and gas meter 
+This Quickapp (for the Fibaro Homecenter 3) retrieves power consumption, power production and gas usage from the (P1 Monitor) energy and gas meter 
 
 Child Devices for Net Consumption, Consumption, Production, Gross Consumption, Device Consumption, Consumption High, Consumption Low, Production High, Production Low, Total Gas, Consumption L1, Consumption L2, Consumption L3, Ampere L1, Ampere L2, Ampere L3, Production L1, Production L2 and Production L3
 
