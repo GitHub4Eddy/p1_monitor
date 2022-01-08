@@ -18,6 +18,13 @@ ToDo as soon as Mobile App supports all device types:
 - gas -> com.fibaro.gasMeter
 - devices with power values (Watt) --> com.fibaro.powerMeter
 
+Version 1.6 (8th January 2022)
+- Changed the waterflow algoritme to show more stable and more acurate measurements
+- Small change in the code for checking existance of waterflow sensor
+- Changed the Waterflow unit from Liter to L/min
+- Added experimental net consumption to power 
+- Added Lasthour gas to labels
+- Changed the API request for status to json output
 
 Version 1.5 (4th Septembber 2021)
 - Support of new Energy Panel: 
