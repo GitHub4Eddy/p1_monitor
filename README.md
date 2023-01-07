@@ -1,22 +1,46 @@
 # p1_monitor
 
-This Quickapp retrieves energy consumption, energy production, gas and water usage from the (P1 Monitor) energy, gas and water meter 
+This Quickapp retrieves energy consumption, energy production, gas and water usage from the (P1 Monitor) energy, gas and water meter. This Quickapp uses the software of ztatz.com to get the values from your smart energy meter. The ztatz software can run on a Raspberry Pi or in a Docker container. 
 
-Child Devices for Consumption (Watt), Production (Watt), Todays Consumption (kWh), Todays Production (kWh), Gross Consumption (Watt), Device Consumption (Watt), Waterflow (Liter), Consumption High (kWh), Consumption Low (kWh), Production High (kWh), Production Low (kWh), Consumption L1 L2 L3 (Watt), Production L1 L2 and L3 (Watt), Ampere L1 L2 L3 (Amp), Voltage L1 L2 L3 (Volt), Total Gas (m³) and Total Waterflow (m³)
+Child Devices for: 
+- Consumption (Watt)
+- Production (Watt)
+- Todays Consumption (kWh)
+- Todays Production (kWh)
+- Waterflow (Liter)
+- Consumption High (kWh)
+- Consumption Low (kWh)
+- Production High (kWh)
+- Production Low (kWh)
+- Consumption L1 (Watt)
+- Consumption L2 (Watt)
+- Consumption L3 (Watt)
+- Production L1 (Watt)
+- Production L2 (Watt)
+- Production L3 (Watt)
+- Ampere L1 (Amp)
+- Ampere L2 (Amp)
+- Ampere L3 (Amp)
+- Voltage L1 (Volt)
+- Voltage L2 (Volt)
+- Voltage L3 (Volt)
+- Total Gas (m³)
+- Total Waterflow (m³)
 
-Energy consumption and energy production is added to the (new) HC3 energy panel
+Energy Panel: 
+The Energy consumption and energy production are added to the HC3 energy panel. 
+Use the child devices Todays Consumption and Todays Production to store energy data (kWh) in the Energy Panel. 
+And use the child devices Consumption and Production for instantaneous power (Watt) in the Energy Panel. 
 
-All power consumption of all HomeCenter devices is summarized
-The difference between the total power consumption and the power consumption of the HomeCenter devices is put in a unused device (unless the powerID = 0 or empty)
+Interval: 
+It is possible to process messages from the smart meter every second. Of course, this is only possible if the smart meter actually sends a message every second. This can be turned on via the ztatz software P1 port configuration page via the "maximum processing speed" option. Note that this gives a higher load on the Rpi (or Docker). It has been tested on the Rpi3/Rpi4 and works well on it. Older or other RPIs have not been tested.
 
-The Child device Todays Consumption can be selected in the Generals Settings as "Main energy meter". Doing so, the summary consumption will be from this device. If not, the consumption will come from the Child device Consumption High, the Child device Consumption Low and all your energy registering Z-wave devices and there values will be counted twice unless you change the Energy panel setting of each energy registering Z-wave device. 
+The P1 Monitor QuickApp uses 2 API calls each cycle, and if you also use Waterflow, 3 API calls each cycle. With an interval setting of 10 seconds there is an API call every 5 seconds (and with Waterflow enabled, every 3.33 seconds). So the fastest interval setting will probably be 3 seconds with Waterflow and 2 seconds without Waterflow. 
 
+Ztatz software: 
+https://www.ztatz.nl
+Docker container based on the ztatz.nl software: The container version has the same functionality as the full version for the Raspberry Pi. Docker container: https://hub.docker.com/r/mclaassen/p1mon
 
-ToDo as soon as Mobile App supports all device types:
-- water -> com.fibaro.waterMeter 
-- ampere/voltage -> com.fibaro.electricMeter
-- gas -> com.fibaro.gasMeter
-- devices with power values (Watt) --> com.fibaro.powerMeter
 
 Version 1.6 (8th January 2022)
 - Changed the waterflow algoritme to show more stable and more acurate measurements
@@ -26,7 +50,8 @@ Version 1.6 (8th January 2022)
 - Added Lasthour gas to labels
 - Changed the API request for status to json output
 
-Version 1.5 (4th Septembber 2021)
+
+Version 1.5 (4th September 2021)
 - Support of new Energy Panel: 
    - Changed Child device Net Consumption to Main device with type com.fibaro.powerSensor (value can be positive or negative)
    - Added Child device Todays Consumption to show the daily energy consumption in kWh
@@ -44,7 +69,6 @@ Version 1.5 (4th Septembber 2021)
    - Added Timestamp in format dd-mm-yyyy hh:mm:ss to log of Main device and labels
    - Placed production below consumption in the labels
    - Solved bug when Production is higher than Consumption with calculation of Gross Consumption (Gross Consumption = Net Consumption minus or plus Device Consumption)
-
 
 Version 1.4 (11th April 2021)
 - Added Child Devices Waterflow and Total Waterflow
@@ -73,12 +97,12 @@ Version 0.3 (16th August 2020)
 - Changed method of adding QuickApp variables, so they can be edited
 
 
-Variables (mandatory): 
+Variables (mandatory and created automatically): 
 - IPaddress = IP address of your P1 monitor
-- Interval = Number in seconds, the P1 Monitor normally is updated every 10 seconds
-- powerID = ID of the device where you want to capture the 'delta' power, use 0 if you don't want to store the energy consumption
+- interval = Number in seconds, the P1 Monitor normally is updated every 10 seconds, sometimes even faster
 - debugLevel = Number (1=some, 2=few, 3=all) (default = 1)
 - waterMeter = Existance of watermeter true or false (default = false)
+- language = Preferred language (default = en) (supported languages are Engish (en) and Dutch (nl))
 
 
 Tested on:
@@ -89,9 +113,8 @@ Tested on:
 
 
 I use a Smart Meter Cable Starter Kit:
-   - Raspberry Pi 4 Model B Rev 1.1 2GB
-   - 8GB Micro SDHC
-   - Original Raspberry Pi 4B Enclosure
-   - Original Raspberry Pi USB-C 3A power supply
-   - Smart Meter cable
-   - P1 Monitor software from: https://www.ztatz.nl
+- Raspberry Pi 4 Model B Rev 1.1 2GB
+- 32GB Micro SDHC
+- Smart Meter cable
+- P1 Monitor software from: https://www.ztatz.nl
+- Water Flow Sensor (M18 8mm sensing DC 5V NPN NO LJ18A3-8-Z/BX-5V cylinder inductive proximity sensor switch work voltage 5VDC special for MCU)
