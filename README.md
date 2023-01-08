@@ -1,12 +1,20 @@
 # p1_monitor
 
-This Quickapp retrieves energy consumption, energy production, gas and water usage from the (P1 Monitor) energy, gas and water meter. This Quickapp uses the software of ztatz.com to get the values from your smart energy meter. The ztatz software can run on a Raspberry Pi or in a Docker container. 
+--[[ Quickapp P1 Monitor readme
+
+This Quickapp retrieves energy consumption, energy production, gas and water usage from the (P1 Monitor) energy, gas and water meter. 
+This Quickapp uses the software of ztatz.com to get the values from your smart energymeter. 
+The ztatz plug-and-play software can run on a Raspberry Pi or in a Docker container. 
+
+The Energy consumption and energy production are added to the HC3 energy panel. 
+Use the child devices Todays Consumption and Todays Production to store energy data (kWh) in the Energy Panel. 
+And use the child devices Consumption and Production for instantaneous power (Watt) in the Energy Panel calculations. 
 
 Child Devices for: 
-- Consumption (Watt)
-- Production (Watt)
-- Todays Consumption (kWh)
-- Todays Production (kWh)
+- Consumption (Watt) (input for instantaneous power in Energy Panel calculations)
+- Production (Watt) (input for instantaneous power in Energy Panel calculations)
+- Todays Consumption (kWh) (input for energy panel)
+- Todays Production (kWh) (input for energy panel)
 - Waterflow (Liter)
 - Consumption High (kWh)
 - Consumption Low (kWh)
@@ -27,11 +35,6 @@ Child Devices for:
 - Total Gas (m³)
 - Total Waterflow (m³)
 
-Energy Panel: 
-The Energy consumption and energy production are added to the HC3 energy panel. 
-Use the child devices Todays Consumption and Todays Production to store energy data (kWh) in the Energy Panel. 
-And use the child devices Consumption and Production for instantaneous power (Watt) in the Energy Panel. 
-
 Interval: 
 It is possible to process messages from the smart meter every second. Of course, this is only possible if the smart meter actually sends a message every second. This can be turned on via the ztatz software P1 port configuration page via the "maximum processing speed" option. Note that this gives a higher load on the Rpi (or Docker). It has been tested on the Rpi3/Rpi4 and works well on it. Older or other RPIs have not been tested.
 
@@ -42,6 +45,19 @@ https://www.ztatz.nl
 Docker container based on the ztatz.nl software: The container version has the same functionality as the full version for the Raspberry Pi. Docker container: https://hub.docker.com/r/mclaassen/p1mon
 
 
+Version 2.0 (8th January 2023)
+- Changed child device types for optimal support of the Energy Panel: 
+  - kWh -> com.fibaro.energyMeter
+  - ampere/voltage -> com.fibaro.electricMeter
+  - Watt -> com.fibaro.powerMeter
+  - gas -> com.fibaro.gasMeter
+  - water -> com.fibaro.waterMeter
+- Removed Power device calculation
+- Removed child devices for gross consumption and device consumption
+- Changed code to multi file
+- Added for translations for English, French, Polish and Dutch
+
+
 Version 1.6 (8th January 2022)
 - Changed the waterflow algoritme to show more stable and more acurate measurements
 - Small change in the code for checking existance of waterflow sensor
@@ -49,7 +65,6 @@ Version 1.6 (8th January 2022)
 - Added experimental net consumption to power 
 - Added Lasthour gas to labels
 - Changed the API request for status to json output
-
 
 Version 1.5 (4th September 2021)
 - Support of new Energy Panel: 
@@ -102,14 +117,14 @@ Variables (mandatory and created automatically):
 - interval = Number in seconds, the P1 Monitor normally is updated every 10 seconds, sometimes even faster
 - debugLevel = Number (1=some, 2=few, 3=all) (default = 1)
 - waterMeter = Existance of watermeter true or false (default = false)
-- language = Preferred language (default = en) (supported languages are Engish (en) and Dutch (nl))
+- language = Preferred language (default = en) (supported languages are Engish (en), French (fr), Polish (pl) and Dutch (nl))
 
 
 Tested on:
-- P1 Monitor version: 20210618 V1.3.1
+- P1 Monitor version: 20221105 V2.1.0
 - Raspberry Pi model: Raspberry Pi 4 Model B Rev 1.1
-- Linux-5.10.17-v7l+-armv7l-with-debian-10.9
-- Python versie: 3.7.3
+- Linux-5.15.74-v7l+-armv7l-with-glibc2.31
+- Python versie: 3.9.2
 
 
 I use a Smart Meter Cable Starter Kit:
@@ -118,3 +133,12 @@ I use a Smart Meter Cable Starter Kit:
 - Smart Meter cable
 - P1 Monitor software from: https://www.ztatz.nl
 - Water Flow Sensor (M18 8mm sensing DC 5V NPN NO LJ18A3-8-Z/BX-5V cylinder inductive proximity sensor switch work voltage 5VDC special for MCU)
+
+
+Example content Json table Smartmeter (without values for production):
+[{"CONSUMPTION_GAS_M3": 6635.825, "CONSUMPTION_KWH_HIGH": 9986.186, "CONSUMPTION_KWH_LOW": 9170.652, "CONSUMPTION_W": 692, "PRODUCTION_KWH_HIGH": 0.0, "PRODUCTION_KWH_LOW": 0.0, "PRODUCTION_W": 0, "RECORD_IS_PROCESSED": 0, "TARIFCODE": "D", "TIMESTAMP_UTC": 1601733693, "TIMESTAMP_lOCAL": "2020-10-03 16:01:33"}]
+  
+Example content Json table Watermeter: 
+[{"TIMEPERIOD_ID": 11, "TIMESTAMP_UTC": 1615713840, "TIMESTAMP_lOCAL": "2021-03-14 10:24:00", "WATERMETER_CONSUMPTION_LITER": 1.0, "WATERMETER_CONSUMPTION_TOTAL_M3": 3406.243, "WATERMETER_PULS_COUNT": 1.0}]
+
+]]
